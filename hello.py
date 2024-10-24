@@ -5,6 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, DecimalField
 from wtforms.validators import DataRequired
 import requests
+import random
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
@@ -18,11 +19,54 @@ app.config['PERROS'] = 0
 app.config['GATOS'] = 0
 app.config['CURRENT_ROUND'] = 1
 
-# Función que obtiene URLs de imágenes de perros y gatos (debes reemplazar esto con tu propia función)
-def obtener_urls_imagenes():
-    perro_url = "https://example.com/dog.jpg"  # Simulación, reemplaza con función real
-    gato_url = "https://example.com/cat.jpg"   # Simulación, reemplaza con función real
-    return perro_url, gato_url
+
+# Funciones para obtener URLs de imágenes y nombres de razas
+def obtener_gato_random():
+    breeds_url = "https://api.thecatapi.com/v1/breeds"
+    breeds_response = requests.get(breeds_url)
+
+    if breeds_response.status_code == 200:
+        breeds = breeds_response.json()
+        
+        if breeds:
+            random_breed = random.choice(breeds)
+            breed_name = random_breed['name']
+            image_url = f"https://api.thecatapi.com/v1/images/search?breed_ids={random_breed['id']}"
+            image_response = requests.get(image_url)
+
+            if image_response.status_code == 200:
+                image_data = image_response.json()
+                if image_data:
+                    return breed_name, image_data[0]['url']
+                else:
+                    return breed_name, None
+            else:
+                return breed_name, None
+    return None, None
+
+
+def obtener_perro_random():
+    breeds_url = "https://api.thedogapi.com/v1/breeds"
+    breeds_response = requests.get(breeds_url)
+
+    if breeds_response.status_code == 200:
+        breeds = breeds_response.json()
+
+        if breeds:
+            random_breed = random.choice(breeds)
+            breed_name = random_breed['name']
+            image_url = f"https://api.thedogapi.com/v1/images/search?breed_ids={random_breed['id']}"
+            image_response = requests.get(image_url)
+
+            if image_response.status_code == 200:
+                image_data = image_response.json()
+                if image_data:
+                    return breed_name, image_data[0]['url']
+                else:
+                    return breed_name, None
+            else:
+                return breed_name, None
+    return None, None
 
 
 # Pantalla de inicio del juego
@@ -41,7 +85,9 @@ def rounds():
     if app.config['CURRENT_ROUND'] > MAX_ROUNDS:
         return redirect(url_for('victory'))
 
-    perro_url, gato_url = obtener_urls_imagenes()
+    # Obtener URLs e información de razas
+    perro_raza, perro_url = obtener_perro_random()
+    gato_raza, gato_url = obtener_gato_random()
 
     if request.method == 'POST':
         # Sumar puntos según la imagen seleccionada
@@ -56,7 +102,7 @@ def rounds():
         if app.config['CURRENT_ROUND'] > MAX_ROUNDS:
             return redirect(url_for('victory'))
     
-    return render_template('rounds.html', perro_url=perro_url, gato_url=gato_url, round=app.config['CURRENT_ROUND'])
+    return render_template('rounds.html', perro_url=perro_url, gato_url=gato_url, round=app.config['CURRENT_ROUND'], perro_raza=perro_raza, gato_raza=gato_raza)
 
 
 # Pantalla final donde se muestra el equipo ganador
