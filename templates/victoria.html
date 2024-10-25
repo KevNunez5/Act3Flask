@@ -1,17 +1,13 @@
-<!doctype html>
-<html lang="es">
-<head>
-    <meta charset="utf-8">
-    <title>Victoria</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container">
-        <h1>¡Fin del juego!</h1>
-        <h2>Ganador: {{ winner }}</h2>
-        <p>Perros: {{ perros }}</p>
-        <p>Gatos: {{ gatos }}</p>
-        <a href="{{ url_for('inicio') }}" class="btn btn-success">Volver a Jugar</a>
-    </div>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Victoria{% endblock %}
+
+{% block page_content %}
+<div class="container">
+    <h1>¡Fin del juego!</h1>
+    <h2>Ganador: {{ winner }}</h2>
+    <p>Perros: {{ perros }}</p>
+    <p>Gatos: {{ gatos }}</p>
+    <a href="{{ url_for('index') }}" class="btn btn-success">Volver a Jugar</a>
+</div>
+{% endblock %}

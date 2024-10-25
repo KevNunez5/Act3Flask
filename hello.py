@@ -1,9 +1,6 @@
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, DecimalField
-from wtforms.validators import DataRequired
 import requests
 import random
 
@@ -76,12 +73,12 @@ def index():
     app.config['PERROS'] = 0
     app.config['GATOS'] = 0
     app.config['CURRENT_ROUND'] = 1
-    return render_template('index.html')
+    return render_template('juego.html')
 
 
 # Pantalla de rounds donde se muestran las imágenes y se elige entre perro o gato
-@app.route('/rounds', methods=['GET', 'POST'])
-def rounds():
+@app.route('/juego', methods=['GET', 'POST'])
+def juego():
     if app.config['CURRENT_ROUND'] > MAX_ROUNDS:
         return redirect(url_for('victory'))
 
@@ -116,7 +113,3 @@ def victory():
         winner = "Empate"
 
     return render_template('victoria.html', winner=winner, perros=app.config['PERROS'], gatos=app.config['GATOS'])
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

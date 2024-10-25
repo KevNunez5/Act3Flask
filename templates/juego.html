@@ -1,9 +1,10 @@
-
+{% extends "base.html" %}
 
 {% block title %}Perros vs Gatos{% endblock %}
 
 {% block head %}
 {{ super() }}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 {% endblock %}
 
 {% block navbar %}
@@ -29,35 +30,11 @@
 {% endblock %}
 
 {% block content %}
-<style>
-    .img-size {
-        width: 100%;
-        height: auto;
-        max-height: 300px; 
-        object-fit: cover; 
-    }
-</style>
-
 <div class="container">
     <div class="jumbotron text-center">
         <h1>¡Bienvenidos a Perros vs Gatos!</h1>
         <p>Decide quién es el mejor de los dos!</p>
         <a class="btn btn-primary btn-lg" href="/juego" role="button">Comienza a Jugar</a>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <h2>¡Elige a mi!</h2>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwyXeKDN29AmZgZPLS7n0Bepe8QmVappBwZCeA3XWEbWNdiDFB" class="img-responsive img-size" alt="Perro">
-        </div>
-        <div class="col-md-6">
-            <h2>No me mires</h2>
-            <img src="https://ih1.redbubble.net/image.4992443638.9247/raf,360x360,075,t,fafafa:ca443f4786.jpg" class="img-responsive img-size" alt="Gato">
-        </div>
-    </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
-{{ super() }}
-{{ moment.include_moment() }}
 {% endblock %}
