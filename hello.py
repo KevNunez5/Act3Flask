@@ -76,7 +76,7 @@ def index():
     app.config['PERROS'] = 0
     app.config['GATOS'] = 0
     app.config['CURRENT_ROUND'] = 1
-    return render_template('inicio.html')
+    return render_template('index.html')
 
 
 # Pantalla de rounds donde se muestran las imágenes y se elige entre perro o gato

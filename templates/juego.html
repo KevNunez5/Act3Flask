@@ -1,0 +1,63 @@
+
+
+{% block title %}Perros vs Gatos{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Perros vs Gatos</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/juego">Jugar</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<style>
+    .img-size {
+        width: 100%;
+        height: auto;
+        max-height: 300px; 
+        object-fit: cover; 
+    }
+</style>
+
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>¡Bienvenidos a Perros vs Gatos!</h1>
+        <p>Decide quién es el mejor de los dos!</p>
+        <a class="btn btn-primary btn-lg" href="/juego" role="button">Comienza a Jugar</a>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>¡Elige a mi!</h2>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwyXeKDN29AmZgZPLS7n0Bepe8QmVappBwZCeA3XWEbWNdiDFB" class="img-responsive img-size" alt="Perro">
+        </div>
+        <div class="col-md-6">
+            <h2>No me mires</h2>
+            <img src="https://ih1.redbubble.net/image.4992443638.9247/raf,360x360,075,t,fafafa:ca443f4786.jpg" class="img-responsive img-size" alt="Gato">
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+{% endblock %}
